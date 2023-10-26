@@ -46,14 +46,16 @@ function generateSettings() {
         title: "",
         type: "string",
         default: "",
-        description: t("Prefix of the resource path to replace."),
+        description: t(
+          "Prefix of the resource path to replace. (case insensitive)",
+        ),
       },
       {
         key: `replaceWith${i}`,
         title: "",
         type: "string",
         default: "",
-        description: t("Replace the prefix with this value."),
+        description: t("Replace the above prefix with this value."),
       },
     )
   }

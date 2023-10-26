@@ -1,1 +1,5 @@
-{}
+{
+  "Rule ${i}": "规则 ${i}",
+  "Prefix of the resource path to replace. (case insensitive)": "被替换的资源的前缀（忽略大小写）",
+  "Replace the above prefix with this value.": "用这里的字符串替换上面的前缀"
+}
