@@ -2,9 +2,13 @@ English | [中文](README.zh.md)
 
 # logseq-plugin-linker
 
-Dynamically replaces a link's URI. It allows you to store big files (like video) outside of Logseq.
+Dynamically replaces a link's path. It allows you to store big files (like video) outside of Logseq.
 
 ## Usage
+
+## Notice
+
+The prefix matching is case insensitive, don't use paths that only differ in casing.
 
 ## Buy me a coffee
 
