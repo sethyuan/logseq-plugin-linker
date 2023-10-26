@@ -82,18 +82,23 @@ const onDOMChanged: MutationCallback = (mutations) => {
     for (const node of mutation.addedNodes) {
       if (isElement(node)) {
         const mediaEls = node.querySelectorAll(
-          "audio,video",
+          "img,audio,video",
         ) as NodeListOf<HTMLMediaElement>
+        const images = node.querySelectorAll(
+          "img",
+        ) as NodeListOf<HTMLImageElement>
         const links = node.querySelectorAll(
           "a[href]",
         ) as NodeListOf<HTMLLinkElement>
 
         for (const mediaEl of mediaEls) {
           for (const [prefix, replaceWith] of mappings) {
-            if (mediaEl.src.toLowerCase().startsWith(prefix)) {
-              mediaEl.src = `${replaceWith}${mediaEl.src.substring(
-                prefix.length,
-              )}`
+            const src = mediaEl
+              .getAttribute("src")
+              ?.toLowerCase()
+              .replace(/^(journals|pages)\//, "")
+            if (src?.startsWith(prefix)) {
+              mediaEl.src = `${replaceWith}${src.substring(prefix.length)}`
             }
           }
         }
