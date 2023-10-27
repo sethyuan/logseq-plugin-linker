@@ -6,6 +6,8 @@
 
 ## 使用展示
 
+https://github.com/sethyuan/logseq-plugin-linker/assets/3410293/1b36251a-be34-4dc4-b26d-1c9badf12740
+
 ## 注意
 
 路径的前缀判断是不区分大小写的，不要使用仅在大小写上有区别的路径。
