@@ -1,7 +1,7 @@
 import "@logseq/libs"
 import type { SettingSchemaDesc } from "@logseq/libs/dist/LSPlugin.user"
 import { setup, t } from "logseq-l10n"
-import { hasScheme, isElement } from "./libs/utils"
+import { isElement } from "./libs/utils"
 import zhCN from "./translations/zh-CN.json"
 
 const RULE_NUM = 20
@@ -67,9 +67,6 @@ function reloadUserRules() {
   const rules: [string, string][] = []
   for (let i = 0; i < RULE_NUM; i++) {
     let prefix = settings[`prefix${i + 1}`]?.toLowerCase()
-    if (!hasScheme(prefix)) {
-      prefix = `file://${prefix}`
-    }
     const replaceWith = settings[`replaceWith${i + 1}`]
     if (prefix && replaceWith) {
       rules.push([prefix, replaceWith])
@@ -99,6 +96,7 @@ const onDOMChanged: MutationCallback = (mutations) => {
               .getAttribute("src")
               ?.toLowerCase()
               .replace(/^(journals|pages)\//, "")
+              .replace(/^file:\/\//, "")
             if (src?.startsWith(prefix)) {
               mediaEl.src = `${replaceWith}${src.substring(prefix.length)}`
             }
@@ -106,8 +104,13 @@ const onDOMChanged: MutationCallback = (mutations) => {
         }
         for (const link of links) {
           for (const [prefix, replaceWith] of mappings) {
-            if (link.href.toLowerCase().startsWith(prefix)) {
-              link.href = `${replaceWith}${link.href.substring(prefix.length)}`
+            const href = link
+              .getAttribute("href")
+              ?.toLowerCase()
+              .replace(/^(journals|pages)\//, "")
+              .replace(/^file:\/\//, "")
+            if (href?.startsWith(prefix)) {
+              link.href = `${replaceWith}${href.substring(prefix.length)}`
             }
           }
         }
