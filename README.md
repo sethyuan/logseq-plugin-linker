@@ -6,6 +6,8 @@ Dynamically replaces a link's path. It allows you to store big files (like video
 
 ## Usage
 
+https://github.com/sethyuan/logseq-plugin-linker/assets/3410293/1b36251a-be34-4dc4-b26d-1c9badf12740
+
 ## Notice
 
 The prefix matching is case insensitive, don't use paths that only differ in casing.
