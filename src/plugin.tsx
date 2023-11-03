@@ -92,25 +92,25 @@ const onDOMChanged: MutationCallback = (mutations) => {
 
         for (const mediaEl of mediaEls) {
           for (const [prefix, replaceWith] of mappings) {
-            const src = mediaEl
-              .getAttribute("src")
+            const src = mediaEl.getAttribute("src")
+            const loweredSrc = src
               ?.toLowerCase()
               .replace(/^(journals|pages)\//, "")
               .replace(/^file:\/\//, "")
-            if (src?.startsWith(prefix)) {
-              mediaEl.src = `${replaceWith}${src.substring(prefix.length)}`
+            if (loweredSrc?.startsWith(prefix)) {
+              mediaEl.src = `${replaceWith}${src!.substring(prefix.length)}`
             }
           }
         }
         for (const link of links) {
           for (const [prefix, replaceWith] of mappings) {
-            const href = link
-              .getAttribute("href")
+            const href = link.getAttribute("href")
+            const loweredHref = href
               ?.toLowerCase()
               .replace(/^(journals|pages)\//, "")
               .replace(/^file:\/\//, "")
-            if (href?.startsWith(prefix)) {
-              link.href = `${replaceWith}${href.substring(prefix.length)}`
+            if (loweredHref?.startsWith(prefix)) {
+              link.href = `${replaceWith}${href!.substring(prefix.length)}`
             }
           }
         }
