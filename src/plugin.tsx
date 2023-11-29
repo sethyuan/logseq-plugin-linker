@@ -83,11 +83,8 @@ const onDOMChanged: MutationCallback = (mutations) => {
         const mediaEls = node.querySelectorAll(
           "img,audio,video",
         ) as NodeListOf<HTMLMediaElement>
-        const images = node.querySelectorAll(
-          "img",
-        ) as NodeListOf<HTMLImageElement>
         const links = node.querySelectorAll(
-          "a[href]",
+          "a[href],a[data-href]",
         ) as NodeListOf<HTMLLinkElement>
 
         for (const mediaEl of mediaEls) {
@@ -104,13 +101,22 @@ const onDOMChanged: MutationCallback = (mutations) => {
         }
         for (const link of links) {
           for (const [prefix, replaceWith] of mappings) {
-            const href = link.getAttribute("href")
+            const hasDataHref = link.hasAttribute("data-href")
+            const href = hasDataHref
+              ? link.dataset.href
+              : link.getAttribute("href")
             const loweredHref = href
               ?.toLowerCase()
               .replace(/^(journals|pages)\//, "")
               .replace(/^file:\/\//, "")
             if (loweredHref?.startsWith(prefix)) {
-              link.href = `${replaceWith}${href!.substring(prefix.length)}`
+              if (hasDataHref) {
+                link.dataset.href = `${replaceWith}${href!.substring(
+                  prefix.length,
+                )}`
+              } else {
+                link.href = `${replaceWith}${href!.substring(prefix.length)}`
+              }
             }
           }
         }
